@@ -205,8 +205,13 @@ app.get("/logs", (req, res) => {
     res.json(securityLog);
 });
 
-// Start the server
-const PORT = 3000;
-app.listen(PORT, () => {
-    console.log(`SecureAI server running on port ${PORT}`);
-});
+// Start the server locally (Vercel handles this automatically in production)
+if (process.env.VERCEL !== "1") {
+    const PORT = 3000;
+    app.listen(PORT, () => {
+        console.log(`SecureAI server running on port ${PORT}`);
+    });
+}
+
+// Export for Vercel serverless
+module.exports = app;
